@@ -5,5 +5,12 @@
   "main": "lib/index.js",
   "repository": "https://github.com/electron-lang/libkicad",
   "author": "David Craven <david@craven.ch>",
-  "license": "ISC"
+  "license": "ISC",
+  "scripts": {
+    "prepare": "yarn build",
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "typescript": "^3.0.1"
+  }
 }
