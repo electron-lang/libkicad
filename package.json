@@ -8,9 +8,17 @@
   "license": "ISC",
   "scripts": {
     "prepare": "yarn build",
-    "build": "tsc"
+    "build": "tsc",
+    "test": "mocha -r ts-node/register 'src/**/*.spec.ts'"
   },
   "devDependencies": {
+    "@types/chai": "^4.1.4",
+    "@types/mocha": "^5.2.5",
+    "@types/node": "^10.5.6",
+    "chai": "^4.1.2",
+    "mocha": "^5.2.0",
+    "proptest": "^0.0.4",
+    "ts-node": "^7.0.0",
     "typescript": "^3.0.1"
   }
 }
