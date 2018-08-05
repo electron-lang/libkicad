@@ -1,0 +1,9 @@
+{
+  "name": "libkicad",
+  "version": "0.0.1",
+  "description": "Parsing, generation and equivalence checking for kicad netlists.",
+  "main": "lib/index.js",
+  "repository": "https://github.com/electron-lang/libkicad",
+  "author": "David Craven <david@craven.ch>",
+  "license": "ISC"
+}
