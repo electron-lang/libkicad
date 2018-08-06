@@ -98,7 +98,7 @@ const allTokens = [
 
 export const lexerInstance = new Lexer(allTokens)
 
-export class KicadParser extends Parser {
+export class NetlistParser extends Parser {
     constructor(input: IToken[]) {
         super(input, allTokens, { outputCst: true })
         this.performSelfAnalysis()
@@ -238,11 +238,11 @@ export class KicadParser extends Parser {
     })
 }
 
-export const parserInstance = new KicadParser([])
+export const parserInstance = new NetlistParser([])
 
-const BaseKicadVisitor = parserInstance.getBaseCstVisitorConstructor()
+const BaseNetlistVisitor = parserInstance.getBaseCstVisitorConstructor()
 
-export class KicadVisitor extends BaseKicadVisitor {
+export class NetlistVisitor extends BaseNetlistVisitor {
     constructor() {
         super()
         this.validateVisitor()
@@ -355,4 +355,4 @@ export class KicadVisitor extends BaseKicadVisitor {
     }
 }
 
-export const visitorInstance = new KicadVisitor()
+export const visitorInstance = new NetlistVisitor()

@@ -1,6 +1,6 @@
 import { expect } from 'chai'
 import { Design, Component, Net } from './ast'
-import { Printer } from './printer'
+import { printerInstance } from './printer'
 
 describe('Printer', () => {
     it('should create a voltage divider', () => {
@@ -19,7 +19,7 @@ describe('Printer', () => {
         n1.addNode(r2.getNode('1'))
         design.addNet(n1)
 
-        expect(Printer.render(design)).to.equal(`
+        expect(printerInstance.render(design)).to.equal(`
 (export
   (version "0.0.1")
   (design

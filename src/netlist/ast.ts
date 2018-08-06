@@ -66,7 +66,7 @@ export class Design {
     }
 
     static toolString(): string {
-        return `libkicad ${require('../package.json').version}`
+        return `libkicad ${require('../../package.json').version}`
     }
 
     addComponent(component: Component) {
