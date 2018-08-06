@@ -9,7 +9,8 @@
   "scripts": {
     "prepare": "yarn build",
     "build": "tsc",
-    "test": "mocha -r ts-node/register 'src/**/*.spec.ts'"
+    "test": "mocha -r ts-node/register 'src/**/*.spec.ts'",
+    "publish:next": "yarn publish --registry=https://registry.npmjs.org/ --exact --canary=next --npm-tag=next --force-publish --skip-git --yes"
   },
   "devDependencies": {
     "@types/chai": "^4.1.4",
