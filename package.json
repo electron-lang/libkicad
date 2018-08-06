@@ -20,5 +20,8 @@
     "proptest": "^0.0.4",
     "ts-node": "^7.0.0",
     "typescript": "^3.0.1"
+  },
+  "dependencies": {
+    "prettier-printer": "^1.1.2"
   }
 }
