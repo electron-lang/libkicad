@@ -1,3 +1,5 @@
+import * as fs from 'fs'
+import * as path from 'path'
 import { IDoc, render } from 'prettier-printer'
 import { SexpPrinter } from './sexp'
 
@@ -75,4 +77,19 @@ export class LibPrinter extends SexpPrinter {
     }
 }
 
-export const printerInstance = new LibPrinter()
+export const fplib = {
+    printer: new LibPrinter()
+}
+
+export class FpLibTable {
+    protected libs: Libs = new Libs()
+
+    addLib(name: string, descr?: string) {
+        this.libs.addLib(Lib.create(name, descr))
+    }
+
+    write(dir?: string) {
+        const file = path.join(path.resolve(dir || process.cwd()), 'fp-lib-table')
+        fs.writeFileSync(file, fplib.printer.render(this.libs))
+    }
+}

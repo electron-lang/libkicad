@@ -1,11 +1,11 @@
 import { expect } from 'chai'
-import { Libs, Lib, printerInstance } from './fplib'
+import { Libs, Lib, fplib } from './fplib'
 
 describe('LibPrinter', () => {
     it('should print fplib table', () => {
-        const fplib = new Libs()
-        fplib.addLib(Lib.create('tinyfpga'))
-        expect(printerInstance.render(fplib)).to.equal(`
+        const libs = new Libs()
+        libs.addLib(Lib.create('tinyfpga'))
+        expect(fplib.printer.render(libs)).to.equal(`
 (fp_lib_table
   (lib
     (name "tinyfpga")
