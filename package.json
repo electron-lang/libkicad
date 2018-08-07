@@ -10,13 +10,14 @@
     "prepare": "yarn build",
     "build": "tsc",
     "test": "mocha -r ts-node/register 'src/**/*.spec.ts'",
-    "publish:next": "yarn publish --registry=https://registry.npmjs.org/ --exact --canary=next --npm-tag=next --force-publish --skip-git --yes"
+    "publish:next": "lerna publish --registry=https://registry.npmjs.org/ --exact --canary=next --npm-tag=next --force-publish --skip-git --yes"
   },
   "devDependencies": {
     "@types/chai": "^4.1.4",
     "@types/mocha": "^5.2.5",
     "@types/node": "^10.5.6",
     "chai": "^4.1.2",
+    "lerna": "^3.0.0-rc.0",
     "mocha": "^5.2.0",
     "proptest": "^0.0.4",
     "ts-node": "^7.0.0",
