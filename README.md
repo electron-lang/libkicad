@@ -1,5 +1,4 @@
-# libkicad
-
+# libkicad [![Build Status](https://travis-ci.org/electron-lang/libkicad.svg?branch=master)](https://travis-ci.org/electron-lang/libkicad) [![Gitter](https://badges.gitter.im/electron-lang/electron.svg)](https://gitter.im/electron-lang/electron)
 Provides support for printing and parsing kicad file formats.
 
 Currently `.net` and `fp-lib-table` are supported.
