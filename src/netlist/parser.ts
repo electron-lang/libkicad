@@ -5,7 +5,7 @@ const Open = createToken({ name: 'Open', pattern: /\(/, label: '(' })
 const Close = createToken({ name: 'Close', pattern: /\)/, label: ')' })
 const PropValue = createToken({
     name: 'PropValue',
-    pattern: /("[^"]*"|[^\s]+)/,
+    pattern: /("[^"]*"|[^\s\(\)]+)/,
 })
 const WhiteSpace = createToken({
     name: 'WhiteSpace',
@@ -55,6 +55,41 @@ const Footprint = createToken({
     pattern: /footprint/,
     label: 'footprint',
 })
+const Libsource = createToken({
+    name: 'Libsource',
+    pattern: /libsource/,
+    label: 'libsource',
+})
+const Lib = createToken({
+    name: 'Lib',
+    pattern: /lib/,
+    label: 'lib',
+})
+const Part = createToken({
+    name: 'Part',
+    pattern: /part/,
+    label: 'part',
+})
+const Sheetpath = createToken({
+    name: 'Sheetpath',
+    pattern: /sheetpath/,
+    label: 'sheetpath',
+})
+const Names = createToken({
+    name: 'Names',
+    pattern: /names/,
+    label: 'names',
+})
+const Tstamps = createToken({
+    name: 'Tstamps',
+    pattern: /tstamps/,
+    label: 'tstamps',
+})
+const Tstamp = createToken({
+    name: 'Tstamp',
+    pattern: /tstamp/,
+    label: 'tstamp',
+})
 
 // Net
 const Net = createToken({
@@ -91,6 +126,8 @@ const allTokens = [
     Export, Version, Components, Nets,
     Design, Source, Date, Tool,
     Comp, Ref, Value, Footprint,
+    Libsource, Lib, Part,
+    Sheetpath, Names, Tstamps, Tstamp,
     Net, Code, Name,
     Node, Pin,
     PropValue, WhiteSpace,
@@ -171,6 +208,9 @@ export class NetlistParser extends Parser {
         this.SUBRULE(this.ref)
         this.SUBRULE(this.value)
         this.SUBRULE(this.footprint)
+        this.OPTION1(() => this.SUBRULE(this.libsource))
+        this.OPTION2(() => this.SUBRULE(this.sheetpath))
+        this.OPTION3(() => this.SUBRULE(this.tstamp))
         this.CONSUME(Close)
     })
 
@@ -191,6 +231,57 @@ export class NetlistParser extends Parser {
     public footprint = this.RULE('footprint', () => {
         this.CONSUME(Open)
         this.CONSUME(Footprint)
+        this.SUBRULE(this.propValue)
+        this.CONSUME(Close)
+    })
+
+    public libsource = this.RULE('libsource', () => {
+        this.CONSUME(Open)
+        this.CONSUME(Libsource)
+        this.SUBRULE(this.lib)
+        this.SUBRULE(this.part)
+        this.CONSUME(Close)
+    })
+
+    public lib = this.RULE('lib', () => {
+        this.CONSUME(Open)
+        this.CONSUME(Lib)
+        this.SUBRULE(this.propValue)
+        this.CONSUME(Close)
+    })
+
+    public part = this.RULE('part', () => {
+        this.CONSUME(Open)
+        this.CONSUME(Part)
+        this.SUBRULE(this.propValue)
+        this.CONSUME(Close)
+    })
+
+    public sheetpath = this.RULE('sheetpath', () => {
+        this.CONSUME(Open)
+        this.CONSUME(Sheetpath)
+        this.SUBRULE(this.names)
+        this.SUBRULE(this.tstamps)
+        this.CONSUME(Close)
+    })
+
+    public names = this.RULE('names', () => {
+        this.CONSUME(Open)
+        this.CONSUME(Names)
+        this.SUBRULE(this.propValue)
+        this.CONSUME(Close)
+    })
+
+    public tstamps = this.RULE('tstamps', () => {
+        this.CONSUME(Open)
+        this.CONSUME(Tstamps)
+        this.SUBRULE(this.propValue)
+        this.CONSUME(Close)
+    })
+
+    public tstamp = this.RULE('tstamp', () => {
+        this.CONSUME(Open)
+        this.CONSUME(Tstamp)
         this.SUBRULE(this.propValue)
         this.CONSUME(Close)
     })
@@ -315,6 +406,20 @@ export class NetlistVisitor extends BaseNetlistVisitor {
     public footprint(ctx: any): string {
         return this.visit(ctx.propValue)
     }
+
+    public libsource(ctx: any): void {}
+
+    public lib(ctx: any): void {}
+
+    public part(ctx: any): void {}
+
+    public sheetpath(ctx: any): void {}
+
+    public names(ctx: any): void {}
+
+    public tstamps(ctx: any): void {}
+
+    public tstamp(ctx: any): void {}
 
     public net(ctx: any): ast.Net {
         const net = new ast.Net({

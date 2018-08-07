@@ -9,7 +9,9 @@
   "scripts": {
     "prepare": "yarn build",
     "build": "tsc",
-    "test": "mocha -r ts-node/register 'src/**/*.spec.ts'",
+    "test": "yarn utest && yarn itest",
+    "utest": "mocha -r ts-node/register 'src/**/*.spec.ts'",
+    "itest": "mocha -r ts-node/register 'tests/*.ts'",
     "publish:next": "lerna publish --registry=https://registry.npmjs.org/ --exact --canary=next --npm-tag=next --force-publish --skip-git --yes"
   },
   "devDependencies": {
