@@ -139,6 +139,20 @@ export class Design {
         }
     }
 
+    swapPins(ref: string, pins: [string, string], flag=true) {
+        for (let net of this.nets) {
+            for (let node of net.nodes) {
+                if (node.ref === ref) {
+                    if (node.pin === pins[0]) {
+                        node.pin = pins[1]
+                    } else if (flag && node.pin === pins[1]) {
+                        node.pin = pins[0]
+                    }
+                }
+            }
+        }
+    }
+
 }
 
 export interface IComponent {
@@ -252,8 +266,16 @@ export class Node {
         return this.node.ref
     }
 
+    set ref(ref: string) {
+        this.node.ref = ref
+    }
+
     get pin(): string {
         return this.node.pin
+    }
+
+    set pin(pin: string) {
+        this.node.pin = pin
     }
 
     equals(other: Node): boolean {
