@@ -5,7 +5,7 @@ describe('LibPrinter', () => {
     it('should print fplib table', () => {
         const libs = new Libs()
         libs.addLib(Lib.create('tinyfpga'))
-        expect(fplib.printer.render(libs)).to.equal(`
+        expect(fplib.print(libs)).to.equal(`
 (fp_lib_table
   (lib
     (name "tinyfpga")

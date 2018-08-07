@@ -77,8 +77,10 @@ export class LibPrinter extends SexpPrinter {
     }
 }
 
+const libPrinterInstance = new LibPrinter()
+
 export const fplib = {
-    printer: new LibPrinter()
+    print: (libs: Libs) => libPrinterInstance.render(libs)
 }
 
 export class FpLibTable {
@@ -90,6 +92,6 @@ export class FpLibTable {
 
     write(dir?: string) {
         const file = path.join(path.resolve(dir || process.cwd()), 'fp-lib-table')
-        fs.writeFileSync(file, fplib.printer.render(this.libs))
+        fs.writeFileSync(file, fplib.print(this.libs))
     }
 }
