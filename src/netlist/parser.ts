@@ -356,3 +356,23 @@ export class NetlistVisitor extends BaseNetlistVisitor {
 }
 
 export const visitorInstance = new NetlistVisitor()
+
+export function tokenize(text: string): IToken[] {
+    const lexResult = lexerInstance.tokenize(text)
+    if (lexResult.errors.length > 0) {
+        throw new Error(lexResult.errors[0].message);
+    }
+    return lexResult.tokens
+}
+
+export function parse(text: string): ast.Design {
+    const tokens = tokenize(text)
+    parserInstance.input = tokens
+    const cst = parserInstance.top()
+    if (parserInstance.errors.length > 0) {
+        const error = parserInstance.errors[0]
+        throw new Error(`msg: ${error.message} ln: ${error.token.startLine} ` +
+                        `col: ${error.token.startColumn}`)
+    }
+    return visitorInstance.visit(cst) as ast.Design
+}

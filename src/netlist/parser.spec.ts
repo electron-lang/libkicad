@@ -1,27 +1,6 @@
 import { expect } from 'chai'
-import { IToken } from 'chevrotain'
-import { lexerInstance, parserInstance, visitorInstance } from './parser'
+import { tokenize, parse } from './parser'
 import { Design, Component, Net } from './ast'
-
-function tokenize(text: string): IToken[] {
-    const lexResult = lexerInstance.tokenize(text)
-    if (lexResult.errors.length > 0) {
-        throw new Error(lexResult.errors[0].message);
-    }
-    return lexResult.tokens
-}
-
-function parse(text: string): Design {
-    const tokens = tokenize(text)
-    parserInstance.input = tokens
-    const cst = parserInstance.top()
-    if (parserInstance.errors.length > 0) {
-        const error = parserInstance.errors[0]
-        throw new Error(`msg: ${error.message} ln: ${error.token.startLine} ` +
-                        `col: ${error.token.startColumn}`)
-    }
-    return visitorInstance.visit(cst) as Design
-}
 
 function expectLabel(text: string, label: string) {
     const token = tokenize(text)[0]
