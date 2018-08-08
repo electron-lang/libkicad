@@ -1,3 +1,5 @@
+import { createRandom } from '../random'
+
 export interface IDesign {
     version?: string
     source?: string
@@ -282,14 +284,4 @@ export class Node {
         return this.ref === other.ref && this.pin === other.pin
     }
 
-}
-
-const CHARS = '0123456789abcdefghijklmnopqrstuvwxyz'
-export function createRandom(length: number = 8, chars: string = CHARS): string {
-    let id = '';
-    for (let i = 0; i < length; i++) {
-        const charIndex = Math.floor(Math.random() * chars.length)
-        id += chars.charAt(charIndex);
-    }
-    return id;
 }
