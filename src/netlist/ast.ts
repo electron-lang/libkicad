@@ -238,11 +238,15 @@ export class Net {
         return this.code === other.code && this.name === other.name
     }
 
-    static create(name?: string): Net {
-        const netName = name ? name : createRandom(8)
+    static create(net: {code?: number, name?: string} | string = {}): Net {
+        if (typeof net === 'string') {
+            net = {name: net}
+        }
+        const netCode = net.code !== undefined ? net.code : parseInt(createRandom(8, '0123456789'))
+        const netName = net.name !== undefined ? net.name : createRandom(8)
         return new Net({
             name: netName,
-            code: parseInt(createRandom(8, '0123456789')),
+            code: netCode,
         })
     }
 
