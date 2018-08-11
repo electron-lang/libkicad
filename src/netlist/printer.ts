@@ -20,8 +20,9 @@ class NetlistPrinter extends SexpPrinter {
     }
 
     printDesign(design: Design): IDoc {
-        return this.printSexpGroup('export', [
-            this.printAtom('version', design.version),
+        // Work around kicad quirk, where version needs to be on the same
+        // line as export.
+        return this.printSexpGroup(`export (version "${design.version}")`, [
             this.printSexpGroup('design', [
                 this.printAtom('source', design.source),
                 this.printAtom('date', design.date),

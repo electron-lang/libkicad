@@ -20,8 +20,7 @@ describe('Printer', () => {
         design.addNet(n1)
 
         expect(printerInstance.render(design)).to.equal(`
-(export
-  (version "0.0.1")
+(export (version "0.0.1")
   (design
     (source "printer.spec.ts")
     (date "2018-08-05 16:26:01")
